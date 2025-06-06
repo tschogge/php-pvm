@@ -1,8 +1,8 @@
 ﻿$ErrorActionPreference = 'Stop'
-$packageName = "pvm"
-$userDataPath = [Environment]::GetFolderPath('ApplicationData')
-$targetPath = "$userDataPath\.$packageName"
-$targetPathBinary = "$targetPath\bin"
+$packageName = "php-pvm"
+$toolName = "pvm"
+$userDataPath = [Environment]::GetFolderPath('UserProfile')
+$targetPath = "$userDataPath\.$toolName"
 
 if (Test-Path $targetPath) {
     Remove-Item $targetPath -Force -Recurse
@@ -23,7 +23,7 @@ Write-Host "Uninstallation completed successfully"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
-  softwareName  = 'pvm*'
+  softwareName  = '$toolName*'
   fileType      = 'EXE'
   silentArgs    = "/qn /norestart"
   validExitCodes= @(0, 3010, 1605, 1614, 1641)
