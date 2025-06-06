@@ -1,0 +1,54 @@
+﻿$ErrorActionPreference = 'Stop'
+$packageName = "pvm"
+$userDataPath = [Environment]::GetFolderPath('ApplicationData')
+$targetPath = "$userDataPath\.$packageName"
+$targetPathBinary = "$targetPath\bin"
+
+if (Test-Path $targetPath) {
+    Remove-Item $targetPath -Force -Recurse
+    Write-Host "Removed the directory and all its contents from $targetPath"
+}
+
+$currentSystemPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
+$newPath = ($currentSystemPath -split ';' | Where-Object { $_ -ne $targetPathBinary }) -join ';'
+
+if ($currentSystemPath -ne $newPath) {
+    [Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
+    Write-Host "Removed $targetPathBinary from the system PATH"
+} else {
+    Write-Host "$targetPathBinary was not found in the system PATH"
+}
+
+Write-Host "Uninstallation completed successfully"
+
+$packageArgs = @{
+  packageName   = $env:ChocolateyPackageName
+  softwareName  = 'pvm*'
+  fileType      = 'EXE'
+  silentArgs    = "/qn /norestart"
+  validExitCodes= @(0, 3010, 1605, 1614, 1641)
+}
+
+[array]$key = Get-UninstallRegistryKey -SoftwareName $packageArgs['softwareName']
+
+if ($key.Count -eq 1) {
+  $key | % {
+    $packageArgs['file'] = "$($_.UninstallString)"
+
+    if ($packageArgs['fileType'] -eq 'MSI') {
+      $packageArgs['silentArgs'] = "$($_.PSChildName) $($packageArgs['silentArgs'])"
+
+      $packageArgs['file'] = ''
+    } else {
+    }
+
+    Uninstall-ChocolateyPackage @packageArgs
+  }
+} elseif ($key.Count -eq 0) {
+  Write-Warning "$packageName has already been uninstalled by other means."
+} elseif ($key.Count -gt 1) {
+  Write-Warning "$($key.Count) matches found!"
+  Write-Warning "To prevent accidental data loss, no programs will be uninstalled."
+  Write-Warning "Please alert package maintainer the following keys were matched:"
+  $key | % {Write-Warning "- $($_.DisplayName)"}
+}
