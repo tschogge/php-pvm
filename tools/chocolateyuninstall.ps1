@@ -9,17 +9,8 @@ if (Test-Path $targetPath) {
     Write-Host "Removed the directory and all its contents from $targetPath"
 }
 
-$currentSystemPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-$newPath = ($currentSystemPath -split ';' | Where-Object { $_ -ne $targetPathBinary }) -join ';'
-
-if ($currentSystemPath -ne $newPath) {
-    [Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
-    Write-Host "Removed $targetPathBinary from the system PATH"
-} else {
-    Write-Host "$targetPathBinary was not found in the system PATH"
-}
-
-Write-Host "Uninstallation completed successfully"
+Uninstall-ChocolateyPath $targetPath
+Write-Host "Removed $targetPath from the system PATH"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName

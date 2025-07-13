@@ -13,14 +13,8 @@ if (!(Test-Path $targetPath)) {
     Write-Host "Created directory $targetPath"
 }
 
-$currentSystemPath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-if ($currentSystemPath -notlike "*$targetPath*") {
-    $newPath = $currentSystemPath + ";" + $targetPath
-    [Environment]::SetEnvironmentVariable("Path", $newPath, "Machine")
-    Write-Host "Added $targetPath to the system PATH"
-} else {
-    Write-Host "$targetPath is already in the system PATH"
-}
+Install-ChocolateyPath $targetPath "Machine"
+Write-Host "Added $targetPath to the system PATH"
 
 $packageArgs = @{
   packageName   = $env:ChocolateyPackageName
