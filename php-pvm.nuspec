@@ -35,20 +35,21 @@ This is a nuspec. It mostly adheres to https://docs.nuget.org/create/Nuspec-Refe
     <!-- == SOFTWARE SPECIFIC SECTION == -->
     <!-- This section is about the software itself -->
     <title>pvm</title>
-    <authors>hjbdev,Lotti,ENG3PLabs,oldreposcrapyard,goodjun,OliverWich,EbouBaker,tschogge</authors>
+    <authors>hjbdev,Lotti,ENG3PLabs,oldreposcrapyard,goodjun,OliverWich,EbouBaker</authors>
+    <owners>Tschogge</owners>
     <!-- projectUrl is required for the community feed -->
     <projectUrl>https://github.com/hjbdev/pvm</projectUrl>
+    <docsUrl>https://github.com/hjbdev/pvm</docsUrl>
+    <projectSourceUrl>https://github.com/hjbdev/pvm</projectSourceUrl>
     <!-- There are a number of CDN Services that can be used for hosting the Icon for a package. More information can be found here: https://docs.chocolatey.org/en-us/create/create-packages#package-icon-guidelines -->
     <!-- Here is an example using Githack -->
     <!--<iconUrl>http://rawcdn.githack.com/__REPLACE_YOUR_REPO__/master/icons/pvm.png</iconUrl>-->
     <!-- <copyright>Year Software Vendor</copyright> -->
-    <!-- If there is a license Url available, it is required for the community feed -->
-    <!-- <licenseUrl>Software License Location __REMOVE_OR_FILL_OUT__</licenseUrl>
+    <licenseUrl>Software License Location https://github.com/hjbdev/pvm/blob/master/LICENSE</licenseUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>-->
     <!--<projectSourceUrl>Software Source Location - is the software FOSS somewhere? Link to it with this</projectSourceUrl>-->
-    <!--<docsUrl>At what url are the software docs located?</docsUrl>-->
-    <!--<mailingListUrl></mailingListUrl>-->
-    <!--<bugTrackerUrl></bugTrackerUrl>-->
+    <mailingListUrl>https://github.com/hjbdev/pvm/discussions</mailingListUrl>
+    <bugTrackerUrl>https://github.com/hjbdev/pvm/discussions</bugTrackerUrl>
     <tags>pvm php php-version php-version-manager manager phpversion phpversionmanager</tags>
     <summary>A PHP version manager</summary>
     <description>A PHP version manager to simply install different PHP versions and easily switch between them. Similar to nvm. Use pvm in the terminal after installation to get started. Repo: https://github.com/hjbdev/pvm</description>
